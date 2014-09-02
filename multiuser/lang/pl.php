@@ -1,10 +1,10 @@
 <?php
 $lang['multiuser']['title'] = 'Multiuser';
-$lang['multiuser']['delete_user'] = 'Delete user';
-$lang['multiuser']['new_user'] = 'New user';
-$lang['multiuser']['edit_user'] = 'Edit user';
-$lang['multiuser']['new'] = 'Add new user';
-$lang['multiuser']['list'] = 'Lista userów:';
+$lang['multiuser']['delete_user'] = 'Skasuj użytkownika';
+$lang['multiuser']['new_user'] = 'Nowy użytkownik';
+$lang['multiuser']['edit_user'] = 'Edytuj użytkownika';
+$lang['multiuser']['new'] = 'Dodaj nowego użytkownika';
+$lang['multiuser']['list'] = 'Lista użytkowników:';
 $lang['multiuser']['login'] = 'Login';
 $lang['multiuser']['pass'] = 'Hasło';
 $lang['multiuser']['role'] = 'Uprawnienia';
