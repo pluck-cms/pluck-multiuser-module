@@ -33,6 +33,9 @@ function get_pass_user($id) {
 	list($name, $pass, $role) = explode("\t", $user);
 	return $pass;
 }
+function check_role_user_name($role_id, $name) {
+	return in_array($role_id, get_role_user(array_keys(get_users_list(), $name)[0]));
+}
 function show_user_box($id, $user) {
 	global $lang;
 	?>
@@ -54,16 +57,31 @@ function show_user_box($id, $user) {
 		</div>
 	<?php
 }
-function choose_role() {
-	echo '<input type="checkbox" id="cont3" name="cont3[]" value="1" />Add / edit pages';
-	echo '<br /><input type="checkbox" id="cont3" name="cont3[]" value="2" />Manage images';
-	echo '<br /><input type="checkbox" id="cont3" name="cont3[]" value="3" />Manage files';
-	echo '<br /><input type="checkbox" id="cont3" name="cont3[]" value="4" />Manage modules';
-	echo '<br /><input type="checkbox" id="cont3" name="cont3[]" value="5" />Change options';
+function choose_role($id = null) {
+	if (isset($id))
+		$role = get_role_user($id);
+	echo '<input type="checkbox" id="cont3" name="cont3[]"'; echo (isset($role[1])) ? 'checked' : ''; echo ' value="1" />Add / edit pages';
+	echo '<br /><input type="checkbox" id="cont3" name="cont3[]"'; echo (isset($role[2])) ? 'checked' : ''; echo ' value="2" />Manage images';
+	echo '<br /><input type="checkbox" id="cont3" name="cont3[]"'; echo (isset($role[3])) ? 'checked' : ''; echo ' value="3" />Manage files';
+	echo '<br /><input type="checkbox" id="cont3" name="cont3[]"'; echo (isset($role[4])) ? 'checked' : ''; echo ' value="4" />Manage modules';
+	echo '<br /><input type="checkbox" id="cont3" name="cont3[]"'; echo (isset($role[5])) ? 'checked' : ''; echo ' value="5" />Change options';
 }
 
-function multiuser_save_user($name, $pass, $role) {
-	file_put_contents('data/settings/modules/multiuser/users.php', $name . "\t" . hash('sha512', $pass) . "\t" . serialize(($role)? $role : '0') . "\n", FILE_APPEND | LOCK_EX);
-	redirect('?module=multiuser', 0);
+function multiuser_save_user($name, $pass, $role, $id = null) {
+	if (!isset($id)) {
+		file_put_contents('data/settings/modules/multiuser/users.php', $name . "\t" . hash('sha512', $pass) . "\t" . serialize(($role)? $role : '0') . "\n", FILE_APPEND | LOCK_EX);
+		redirect('?module=multiuser', 0);
+	}
+	else {
+		$users = file('data/settings/modules/multiuser/users.php');
+		//if we are changing pass, then hash the pass, else pass is already hashed.
+		if (!empty($pass))
+			$pass = hash('sha512', $pass);
+		else
+			$pass = get_pass_user($id);
+		$users[$id] = $name . "\t" .  $pass . "\t" . serialize(($role)? $role : '0') . "\n";
+		file_put_contents('data/settings/modules/multiuser/users.php', $users, LOCK_EX);
+		redirect('?module=multiuser', 0);
+	}
 }
 ?>

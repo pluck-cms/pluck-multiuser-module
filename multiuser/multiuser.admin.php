@@ -53,8 +53,15 @@ function multiuser_page_admin_newuser() {
 		//pass
 		if (empty($_POST['cont2'])) 
 			$error['pass'] = show_error($lang['multiuser']['no_pass'], 1, true);
+		//roles
+		$roles = array();
+		foreach ($cont3 as $role) {
+			$roles[$role] = $role;
+		}
+		unset ($role);
+
 		if (!isset($error))
-			multiuser_save_user($cont1, $cont2, $cont3);
+			multiuser_save_user($cont1, $cont2, $roles);
 	}
 	
 	?>
@@ -82,7 +89,7 @@ function multiuser_page_admin_newuser() {
 }
 
 function multiuser_page_admin_deleteuser() {
-	global $cont1, $cont2, $cont3, $lang, $var1;
+	global $lang, $var1;
 
 	if($var1 > 0) {
 		$users = file('data/settings/modules/multiuser/users.php');
@@ -94,6 +101,54 @@ function multiuser_page_admin_deleteuser() {
 
 function multiuser_page_admin_edituser() {
 	global $cont1, $cont2, $cont3, $lang, $var1;
-	echo '';
+	
+	if($var1 > 0) {
+		$users = file('data/settings/modules/multiuser/users.php');
+		$user = $users[$var1];
+		unset($users);
+		list($name, $pass, $role) = explode("\t", $user);
+		unserialize($role);
+		
+		//If form is posted...
+		if (isset($_POST['save'])) {
+			//login
+			if (empty($_POST['cont1']))
+				$error['login'] = show_error($lang['multiuser']['no_login'], 1, true);
+			//roles
+			$roles = array();
+			foreach ($cont3 as $role) {
+				$roles[$role] = $role;
+			}
+			unset ($role);
+
+			if (!isset($error))
+				multiuser_save_user($cont1, $cont2, $roles, $var1);
+		}
+	
+		?>
+		<form method="post" action="">
+			<p>
+				<label class="kop2" for="cont1"><?php echo $lang['multiuser']['login'] ?></label>
+				<br />
+				<input name="cont1" id="cont1" type="text" value="<?php echo $name; ?>" />
+				<?php if (isset($error['login'])) echo $error['login']; ?>
+			</p>
+			<p>
+				<label class="kop2" for="cont2"><?php echo $lang['multiuser']['pass'] ?></label>
+				<br />
+				<input name="cont2" id="cont2" type="text" value="" />
+				<?php if (isset($error['pass'])) echo $error['pass']; ?>
+			</p>
+			<p>
+				<label class="kop2" for="cont3"><?php echo $lang['multiuser']['role']; ?></label>
+				<br />
+				<?php choose_role($var1); ?>
+			</p>
+			<?php show_common_submits('?module=multiuser'); ?>
+		</form>
+		<?php
+		
+		
+	}
 }
 ?>

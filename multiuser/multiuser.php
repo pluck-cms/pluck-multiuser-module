@@ -17,9 +17,9 @@ function multiuser_info() {
 	);
 }
 function multiuser_admin_editpage_before() {
-	if (isset($_SESSION['pluck_multiuser_login']) && in_array('1', get_role_user(array_keys(get_role_user(), $_SESSION['pluck_login'])))) {
+	if (!check_role_user_name('1', $_SESSION['pluck_login'])) {
 		echo 'brak uprawnień';
-		die('brak uprawnień');
+		die('dont have permisions');
 	}
 }
 ?>
