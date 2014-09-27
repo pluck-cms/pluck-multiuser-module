@@ -2,10 +2,11 @@
 //Make sure the file isn't accessed directly.
 defined('IN_PLUCK') or exit('Access denied!');
 
+global $lang;
 //Check if module is installed
 if (!file_exists('multiuser.php')) {
 	@copy('data/modules/multiuser/lib/multiuser.php', 'multiuser.php');
-	if (!file_exists('multiuser.php')) $error['multiuser'] = 'Nie można zainstalować modułu multiuser. Musisz ręcznie skopiować plik multiuser.php do katalogu głównego.';
+	if (!file_exists('multiuser.php')) $error['multiuser'] = $lang['multiuser']['error'];
 }
 
 function get_users_list() {

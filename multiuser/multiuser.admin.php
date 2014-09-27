@@ -1,5 +1,4 @@
 <?php
-
 //Make sure the file isn't accessed directly.
 defined('IN_PLUCK') or exit('Access denied!');
 
@@ -147,8 +146,6 @@ function multiuser_page_admin_edituser() {
 			<?php show_common_submits('?module=multiuser'); ?>
 		</form>
 		<?php
-		
-		
 	}
 }
 ?>

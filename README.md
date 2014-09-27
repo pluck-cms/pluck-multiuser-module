@@ -6,4 +6,4 @@ Module for Pluck-CMS.
 This module create in Pluck-CMS Panel Admin for more users, with permisions roles.
 
 TODO:
-finish login mode
+problems with login and maintace
