@@ -11,7 +11,7 @@ $lang['multiuser']['role'] = 'Permisos';
 $lang['multiuser']['no_login'] = 'Introduzca el usuario';
 $lang['multiuser']['login_exists'] = 'Acceso bloqueado';
 $lang['multiuser']['no_pass'] = 'Introduzca la contrasena';
-$lang['multiuser']['error'] = 'Es imposible autoinstalar el módulo de multiusuarios. Tienes que copiar manualmente multiuser\lib\multiuser.php a tu directorio raíz.';
-$lang['multiuser']['intro'] = 'Módulo multiusuario y multiadmin';
+$lang['multiuser']['error'] = 'Es imposible autoinstalar el mÃ³dulo de multiusuarios. Tienes que copiar manualmente multiuser\lib\multiuser.php a tu directorio raÃ­z.';
+$lang['multiuser']['intro'] = 'MÃ³dulo multiusuario y multiadmin';
 $lang['multiuser']['no_permisions'] = 'Sin permisos';
 ?>
