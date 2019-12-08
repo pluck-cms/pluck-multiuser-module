@@ -30,8 +30,12 @@ if (!file_exists('data/settings/install.dat')) {
 else {
 	//Then check if we are properly logged in.
 	if (!isset($_SESSION[$token]) && !isset($_GET['page'])) {
+		if (!$_SERVER['QUERY_STRING'])
+			$_SERVER['QUERY_STRING'] = 'action=start';
+	
 		$_SESSION['pluck_before'] = 'multiuser.php?'.$_SERVER['QUERY_STRING'];
 		$titelkop = $lang['login']['not'];
+
 		include_once ('data/inc/header2.php');
 		show_error($lang['login']['not_message'], 2);
 		redirect('multiuser.php?page=login', 2);
